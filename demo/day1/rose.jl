@@ -14,7 +14,7 @@ end
 
 # ╔═╡ b82afd18-8869-4445-8337-9a2b0253a628
 md"""
-# Rosenbrock function gradient free optimisation
+# Rosenbrock function gradient vs. gradient-free optimisation
 """
 
 # ╔═╡ 161c402a-b492-4c1b-a7f8-edc25f703580
@@ -49,7 +49,7 @@ end
 
 # ╔═╡ 21637de1-cc20-4223-87d2-5dbf4cc63924
 md"""
-# Optimisation using gradient-based method (NLopt)
+# Optimisation using gradient-based method (LBFGS)
 """
 
 # ╔═╡ ac269873-31be-4d82-9287-5e4940f8ee46

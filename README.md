@@ -44,6 +44,8 @@ You can install Julia using the instructions in the website
 
 https://julialang.org/downloads/
 
+Please install version 1.10.4 of Julia to be compatible with the Pluto notebooks.
+
 Also install Pluto notebook by following the instructions here,
 
 https://plutojl.org/#install

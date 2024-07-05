@@ -111,17 +111,22 @@ begin
 end
 
 # ╔═╡ 920f1e30-1e93-41e6-b196-a9de472cf28e
-	md"""
-	## Fix this program to obtain the gradient of residual in fAd
+	md"""# Find shock location $x_0$ given $\delta$ (fixed $\nu$)
 
-	Hint: Remeber that in Zygote to obtain the gradient of a function you use the grdient operator for example if $f(x)$ is a function then 
-	
+	To find $x_0$ one has to first find the state $A$ using the state equation $f(A, \delta)=0$. We use the famous Newton-Raphson iteration to solve the fixed-point $f(A, \delta)=0$.
+
+	$$A^{new} = A^{old} - f(A, \delta) / \dot{f}(A, \delta)$$
+
+	Fix this program to obtain the gradient of residual in $\dot{f}(A, \delta)$ in the variable `fAd`.
+
+	Hint: Remember that in Zygote to obtain the gradient of a function you use the gradient operator for example if $f(x)$ is a function then
+
 	```julia
-	Zygote.gradient(x -> f(x), 1.0) 
+	Zygote.gradient(x -> f(x), 1.0)
 	```
-	
-	gives the gradient of $\frac{d f}{d x}$ at $x=1$. Note that `gradient` returns a `Tuple` and you need to access the first element of this `Tuple` to get the gradient value i.e., 
-	
+
+	gives the gradient of $\frac{d f}{d x}$ at $x=1$. Note that `gradient` returns a `Tuple` and you need to access the first element of this `Tuple` to get the gradient value i.e.,
+
 	```julia
 	foo_d =  Zygote.gradient(x -> foo(x), 1.0)[1]
 	```
@@ -161,7 +166,7 @@ end
 md"""
 # Cost-function Design Sensitivity
 
-Estimating the sensitivity of the shock location $x_0$ for a given boundary perturbation $\delta$ looks quite similar to a optimisation problem with a equality constraint. 
+Estimating the sensitivity of the shock location $x_0$ for a given boundary perturbation $\delta$ looks quite similar to an optimisation problem with an equality constraint (see slide 18).
 
 - The state variable is $A$
 - Design variable is $\delta$
@@ -170,7 +175,7 @@ Estimating the sensitivity of the shock location $x_0$ for a given boundary pert
 
 $$\frac{d x_0}{d \delta}=\frac{\partial x_0}{\partial \delta} + \frac{\partial x_0}{\partial A}\frac{\partial A}{\partial \delta}=\frac{\partial x_0}{\partial \delta} + \frac{\partial x_0}{\partial A}\left(  \frac{\partial f}{\partial A}\right)^{-1}\frac{\partial f}{\partial \delta}$$
 
-### Homework exercise: 
+### Homework exercise:
 
 Plot the sensitivity $\frac{d x_0}{d \delta}$ for $\delta \in [0, 0.1]$ (given $\nu$ from `ν_gui` variable). Use the `Zygote.gradient` to obtain the gradient of the functions in the sensitivity equation. (Remember that the function $f$ is the `residue` function defined in this notebook.)
 """

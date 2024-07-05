@@ -121,19 +121,6 @@ function ArcParamToParam(self::BezierCurve, u)
   return t_new;
 end
 
-##
-function FitThicknessProfilePS(self::RadialBlade, x_p::AbstractArray)
-  camber = BladeCamberCurve(self);
-  ps = PressureSideCurve(self);
-  ss = SuctionSideCurve(self);
-  ## First project points to curve to get parameter
-
-  ## Use parameter and estimate the L2 distance to points
-
-  ## Minimise the distance till tolerance is reached
-
-end
-
 ## Find the nearest point on the Bezier curve to a given point
 ## and returns the parameter value of the closest point
 function NearestParamToPoint(self::BezierCurve, z, uin)
@@ -372,10 +359,7 @@ end
 md"""
 # Auto-Differention and CAD Algorithms
 
-Differentiable CAD has gained popularity in the design optimization community. Differentiability allows for a direct connection between surface sensitivities and CAD design parameters. This enables direct design optimization on CAD parameters using efficient adjoint sensitivity.
-
-In this notebook we will explore how CAD algorithms benefit from AutoDiff and present few algorihtms where AutoDiff is useful.
-
+Differentiable CAD has gained popularity in the design optimization community. Differentiability allows for a direct connection between surface sensitivities and CAD design parameters. This enables direct design optimization on CAD parameters using efficient adjoint sensitivity. In this notebook, we will explore how CAD algorithms benefit from AutoDiff by presenting a few CAD algorithms.
 """
 
 # ╔═╡ d78e5d0b-2e47-438e-8d24-d4b26d369e25
@@ -396,8 +380,9 @@ begin
     u = (i - 1) * (1.0 / np);
     z1[:, i] = ParamToPoint(camber, u);
   end
-  plt = plot(z1[1, :], z1[2, :], aspect_ratio = :equal);
-  plot!(plt, ps.p[1, :], ps.p[2, :], seriestype = :scatter );
+  plt = plot(z1[1, :], z1[2, :], aspect_ratio = :equal, legend=false);
+  plot!(plt, ps.p[1, :], ps.p[2, :], seriestype = :scatter, framestyle = :box,  );
+  plot!(plt, ss.p[1, :], ss.p[2, :], seriestype = :scatter, framestyle = :box,  );
   for i = 1:size(ss.p, 2)
     println("ss ", i, " = ", ss.p[:, i]);
   end

@@ -34,7 +34,7 @@ $$(u', v') =\frac{\Gamma}{2 \pi R^2} \exp{\left[\frac{1 - \left(\frac{r}{R}\righ
 
 And the temperature perturbation is given by,
 
-$$T_{\infty} =-\frac{\gamma - 1}{2 \gamma} \frac{\Gamma^2}{4 \pi^2R^2} \exp{\left[1 - \left(\frac{r}{R}\right)^2 \right]}$$
+$$T_{\infty} =-\frac{\gamma - 1}{2 \gamma} \left(\frac{\Gamma}{2 \pi R^2}\right)^2 \exp{\left[1 - \left(\frac{r}{R}\right)^2 \right]}$$
 
 The radial distance is defined as $r^2=(x-x_0)^2 + (y-y_0)^2$.
 
@@ -55,7 +55,7 @@ begin
 	y0_plot = 0.0
 	R_plot = 0.1
 	mag_u_plot(x, y) = sqrt( IsenVortexUV(x, y, Γ_plot, x0_plot, y0_plot, R_plot)[1]^2 + IsenVortexUV(x, y, Γ_plot, x0_plot, y0_plot, R_plot)[2]^2)
-	contour(x_plot, y_plot, mag_u_plot, contour_labels = false, aspect_ratio=1, framestyle = :box)
+	contour(x_plot, y_plot, mag_u_plot, contour_labels = false, aspect_ratio=1, framestyle = :box, xlimit=[-1,1], ylimit=[-1,1], xlabel="x coordinate", ylabel="y coordinate")
 end
 
 # ╔═╡ 5ea77436-d79e-4bba-8e5f-5eba7ab9d0fb

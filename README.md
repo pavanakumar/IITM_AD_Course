@@ -66,7 +66,7 @@ $> julia
  _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
 |__/                   |
 
-julia> using Pluto
+julia> import Pluto
 
 julia> Pluto.run()
 ```

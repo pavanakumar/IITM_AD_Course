@@ -28,7 +28,7 @@ In CFD a popular test case for testing numerical schemes is the solution to the 
 
 $$(u_{\infty}, v_{\infty}),\hspace{5pt} p_{\infty}, \rho_{\infty}$$
 
-For a vortex of strength $\Gamma$ and centred at $(x_0, y_0)$ and a characteric radius $R$ the perturbation velocities are given by,
+For a vortex of strength $\Gamma$ and centred at $(x_0, y_0)$ and a characteric radius $R$, the perturbation velocities are given by,
 
 $$(u', v') =\frac{\Gamma}{2 \pi R^2} \exp{\left[\frac{1 - \left(\frac{r}{R}\right)^2}{2}\right]}\left( y_0 - y, x - x_0 \right)$$
 

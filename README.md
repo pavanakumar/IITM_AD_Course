@@ -18,11 +18,11 @@ http://www-tapenade.inria.fr:8080/tapenade/index.jsp
 
 If you wish to install Tapenade on your own machine then make sure you download the latest version from the URL
 
-https://tapenade.gitlabpages.inria.fr/tapenade/
+[Tapenade online](https://tapenade.gitlabpages.inria.fr/tapenade)
 
 Tapenade needs Java runtime environment which can be installed here,
 
-https://www.java.com/en/download/help/linux_x64_install.html
+[https://www.java.com/en/download/help/linux_x64_install.html](https://www.java.com/en/download/help/linux_x64_install.html)
 
 or on Debian/Ubuntu linux you have something equivalent of
 
@@ -42,11 +42,35 @@ To run the Fortran examples and demo one requires installation of Fortran compil
 
 You can install Julia using the instructions in the website
 
-https://julialang.org/downloads/
+[Julia Download link](https://julialang.org/downloads/)
 
 Please install version 1.10.4 of Julia to be compatible with the Pluto notebooks.
 
 Also install Pluto notebook by following the instructions here,
 
-https://plutojl.org/#install
+[Pluto Install Instructions](https://plutojl.org/#install)
+
+## How to run the notebooks
+
+Fire up Julia interpreter 
+
+```
+$> cd IITM_AD_Course/exercises/day1
+$> julia
+               _
+   _       _ _(_)_     |  Documentation: https://docs.julialang.org
+  (_)     | (_) (_)    |
+   _ _   _| |_  __ _   |  Type "?" for help, "]?" for Pkg help.
+  | | | | | | |/ _` |  |
+  | | |_| | | | (_| |  |  Version 1.10.4 (2024-06-04)
+ _/ |\__'_|_|_|\__'_|  |  Official https://julialang.org/ release
+|__/                   |
+
+julia> using Pluto
+
+julia> Pluto.run()
+```
+
+This will open Pluto in a web browser. Just open the .jl exercise notebooks and 
+start learning !
 

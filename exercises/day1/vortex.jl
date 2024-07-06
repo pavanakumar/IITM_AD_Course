@@ -82,20 +82,26 @@ Vary the value of ϵ in the code to understand how the solution changes.
 # ╔═╡ b75c2e05-e927-4785-9468-29c23bffd3a3
 begin
 	function IsenVortexV(x, y, Γ, x0, y0, R)
-		ϵ = 1.0e-10
+		ϵ = 1e-12
 		# Seed x first to get dv/dx
-		x_deriv = x + ϵ * 1Im
-		y_deriv = y + 0Im
+		x_deriv = x + ϵ * 1im
+		y_deriv = y + 0im
         duvdx = IsenVortexUV(x_deriv, y_deriv, Γ, x0, y0, R)
 		# Seed y next to get du/dx
-		x_deriv = x + 0Im
-		y_deriv = y + ϵ * 1Im
+		x_deriv = x + 0im
+		y_deriv = y + ϵ * 1im
   		duvdy = IsenVortexUV(x_deriv, y_deriv, Γ, x0, y0, R)
 		# Now obtain the vertical velocity
   		dudy = imag(duvdy[1]) / ϵ
 		dvdx = imag(duvdx[2]) / ϵ
   		return dvdx - dudy
 	end
+end
+
+# ╔═╡ c76ffb98-41d7-4627-8edc-6bd165a7fc21
+begin
+	V_plot(x, y) = IsenVortexV(x, y, Γ_plot, x0_plot, y0_plot, R_plot)
+	contour(x_plot, y_plot, V_plot, contour_labels = false, aspect_ratio=1, framestyle = :box, xlimit=[-1,1], ylimit=[-1,1], xlabel="x coordinate", ylabel="y coordinate")
 end
 
 # ╔═╡ e8aaf622-76bd-4c5a-a370-58c8b1964374
@@ -1216,10 +1222,11 @@ version = "1.4.1+1"
 # ╟─7bdf56d6-0d59-4b28-98a6-93f14ac2f0ab
 # ╟─c12bedff-e6af-46db-8262-a9d988da1e07
 # ╟─be83bab4-b4c2-47da-b5a9-09542f48d3bd
-# ╟─ac76885f-8ccd-436e-b9ae-bb0b88bda945
+# ╠═ac76885f-8ccd-436e-b9ae-bb0b88bda945
 # ╟─5ea77436-d79e-4bba-8e5f-5eba7ab9d0fb
 # ╟─4b1d42c1-5927-4671-b00a-0d546313cd66
-# ╠═b75c2e05-e927-4785-9468-29c23bffd3a3
+# ╟─b75c2e05-e927-4785-9468-29c23bffd3a3
+# ╟─c76ffb98-41d7-4627-8edc-6bd165a7fc21
 # ╟─e8aaf622-76bd-4c5a-a370-58c8b1964374
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

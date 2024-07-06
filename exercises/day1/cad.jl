@@ -360,7 +360,7 @@ end
 md"""
 # Differentiable CAD Algorithms
 
-Differentiable CAD has gained popularity in the design optimization community. Differentiability allows for a direct connection between surface sensitivities and CAD design parameters. This enables direct design optimization on CAD parameters using efficient adjoint sensitivity. In this notebook, we will explore how CAD algorithms benefit from AutoDiff by presenting a few popular CAD algorithms.
+Differentiable CAD has gained a lot of traction in the design optimization community. Differentiability allows for a direct connection between surface sensitivities and CAD design parameters. This enables direct design optimization on CAD parameters using efficient adjoint sensitivity. In this notebook, we will explore how CAD algorithms benefit from AutoDiff by presenting a few popular CAD algorithms.
 """
 
 # ╔═╡ e31a0879-a44c-45d1-a2ab-2557938ea251

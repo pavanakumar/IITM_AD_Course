@@ -87,7 +87,7 @@ begin
 		x_deriv = x + ϵ * 1Im
 		y_deriv = y + 0Im
         duvdx = IsenVortexUV(x_deriv, y_deriv, Γ, x0, y0, R)
-		# Seed x first to get du/dx
+		# Seed y next to get du/dx
 		x_deriv = x + 0Im
 		y_deriv = y + ϵ * 1Im
   		duvdy = IsenVortexUV(x_deriv, y_deriv, Γ, x0, y0, R)

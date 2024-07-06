@@ -15,6 +15,7 @@ using Zygote
 using Optim
 using QuadGK
 using Zygote
+using PlutoUI
 
 abstract type Curve end;
 
@@ -385,6 +386,9 @@ Here is a radial diffuser blade, which has been designed with Bézier Curves. We
 
 """
 
+# ╔═╡ 37de91ad-65e6-4bf5-b1a0-c17349331bdd
+PlutoUI.LocalResource("images/radial_diffuser.png")
+
 # ╔═╡ d78e5d0b-2e47-438e-8d24-d4b26d369e25
 begin
   deg2rad = π / 180.0;
@@ -502,6 +506,7 @@ ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Optim = "429524aa-4258-5aef-a3af-852621145aeb"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+PlutoUI = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
 Profile = "9abbd945-dff8-562f-b5e8-e1ebf5ef1b79"
 QuadGK = "1fd47b50-473d-5c70-9696-f719f8f3bcdc"
 Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
@@ -510,6 +515,7 @@ Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
 ForwardDiff = "~0.10.36"
 Optim = "~1.9.4"
 Plots = "~1.40.5"
+PlutoUI = "~0.7.59"
 QuadGK = "~2.9.4"
 Zygote = "~0.6.70"
 """
@@ -520,7 +526,7 @@ PLUTO_MANIFEST_TOML_CONTENTS = """
 
 julia_version = "1.10.4"
 manifest_format = "2.0"
-project_hash = "197d36d6dcea7442fa0959498cb24dd2fe90fe09"
+project_hash = "3b55a2de64d870d08f7c648625692c8d175002be"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -532,6 +538,12 @@ weakdeps = ["ChainRulesCore", "Test"]
     [deps.AbstractFFTs.extensions]
     AbstractFFTsChainRulesCoreExt = "ChainRulesCore"
     AbstractFFTsTestExt = "Test"
+
+[[deps.AbstractPlutoDingetjes]]
+deps = ["Pkg"]
+git-tree-sha1 = "6e1d2a35f2f90a4bc7c2ed98079b2ba09c35b83a"
+uuid = "6e696c72-6542-2067-7265-42206c756150"
+version = "1.3.2"
 
 [[deps.Adapt]]
 deps = ["LinearAlgebra", "Requires"]
@@ -929,6 +941,24 @@ git-tree-sha1 = "129acf094d168394e80ee1dc4bc06ec835e510a3"
 uuid = "2e76f6c2-a576-52d4-95c1-20adfe4de566"
 version = "2.8.1+1"
 
+[[deps.Hyperscript]]
+deps = ["Test"]
+git-tree-sha1 = "179267cfa5e712760cd43dcae385d7ea90cc25a4"
+uuid = "47d2ed2b-36de-50cf-bf87-49c2cf4b8b91"
+version = "0.0.5"
+
+[[deps.HypertextLiteral]]
+deps = ["Tricks"]
+git-tree-sha1 = "7134810b1afce04bbc1045ca1985fbe81ce17653"
+uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
+version = "0.9.5"
+
+[[deps.IOCapture]]
+deps = ["Logging", "Random"]
+git-tree-sha1 = "b6d6bfdd7ce25b0f9b2f6b3dd56b2673a66c8770"
+uuid = "b5f81e59-6552-4d32-b1f0-c071b021bf89"
+version = "0.2.5"
+
 [[deps.IRTools]]
 deps = ["InteractiveUtils", "MacroTools"]
 git-tree-sha1 = "950c3717af761bc3ff906c2e8e52bd83390b6ec2"
@@ -1148,6 +1178,11 @@ git-tree-sha1 = "c1dd6d7978c12545b4179fb6153b9250c96b0075"
 uuid = "e6f89c97-d47a-5376-807f-9c37f3926c36"
 version = "1.0.3"
 
+[[deps.MIMEs]]
+git-tree-sha1 = "65f28ad4b594aebe22157d6fac869786a255b7eb"
+uuid = "6c6e2e6c-3030-632d-7369-2d6c69616d65"
+version = "0.1.4"
+
 [[deps.MacroTools]]
 deps = ["Markdown", "Random"]
 git-tree-sha1 = "2fa9ee3e63fd3a4f7a9a4f4744a52f4856de82df"
@@ -1324,6 +1359,12 @@ version = "1.40.5"
     IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
     ImageInTerminal = "d8c32880-2388-543b-8c61-d9f865259254"
     Unitful = "1986cc42-f94f-5a68-af5c-568840ba703d"
+
+[[deps.PlutoUI]]
+deps = ["AbstractPlutoDingetjes", "Base64", "ColorTypes", "Dates", "FixedPointNumbers", "Hyperscript", "HypertextLiteral", "IOCapture", "InteractiveUtils", "JSON", "Logging", "MIMEs", "Markdown", "Random", "Reexport", "URIs", "UUIDs"]
+git-tree-sha1 = "ab55ee1510ad2af0ff674dbcced5e94921f867a9"
+uuid = "7f904dfe-b85e-4ff6-b463-dae2292396a8"
+version = "0.7.59"
 
 [[deps.PositiveFactorizations]]
 deps = ["LinearAlgebra"]
@@ -1555,6 +1596,11 @@ weakdeps = ["Random", "Test"]
 
     [deps.TranscodingStreams.extensions]
     TestExt = ["Test", "Random"]
+
+[[deps.Tricks]]
+git-tree-sha1 = "eae1bb484cd63b36999ee58be2de6c178105112f"
+uuid = "410a4b4d-49e4-4fbc-ab6d-cb71b17b3775"
+version = "0.1.8"
 
 [[deps.URIs]]
 git-tree-sha1 = "67db6cc7b3821e19ebe75791a9dd19c9b1188f2b"
@@ -1922,6 +1968,7 @@ version = "1.4.1+1"
 # ╟─5ee51b41-c01b-4803-aea5-7b4768287c28
 # ╟─e31a0879-a44c-45d1-a2ab-2557938ea251
 # ╟─60f0ea92-6c70-4aee-958b-17bfb36ffb40
+# ╟─37de91ad-65e6-4bf5-b1a0-c17349331bdd
 # ╟─d78e5d0b-2e47-438e-8d24-d4b26d369e25
 # ╟─5188b548-e265-46ea-a5c0-9a6e9b1099df
 # ╟─5bc4e138-073e-4a5f-9c91-40f73bb694d2

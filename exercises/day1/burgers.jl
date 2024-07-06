@@ -42,7 +42,7 @@ Parameter $\delta$ is specified at the boundary $x = -1$, which controls the per
 """
 
 # ╔═╡ 6acc6ecd-30be-4dff-a840-d68ffb3801c6
-PlutoUI.Resource("https://raw.githubusercontent.com/pavanakumar/IITM_AD_Course/exercises/day1/images/burgers.png")
+PlutoUI.LocalResource("./images/burgers.png")
 
 # ╔═╡ ccdf3945-f16f-49f6-9f7a-251e471f201a
 md"""

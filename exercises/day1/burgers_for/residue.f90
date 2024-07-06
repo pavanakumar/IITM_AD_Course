@@ -5,7 +5,8 @@ SUBROUTINE RESIDUE_DA(nu, delta, a, ad, res, resd)
   REAL*8, INTENT(IN) :: ad
   REAL*8, INTENT(OUT) :: res
   REAL*8, INTENT(OUT) :: resd
-! Fix me please !!!!
+  write(*, *) "Fix me with the right gradient in residue.f90"
+  STOP
 END SUBROUTINE RESIDUE_DA
 
 ! residue function

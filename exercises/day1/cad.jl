@@ -371,7 +371,7 @@ Bézier Curves are parametric curves used extensively in CAD modelling to obtain
 
 $$\mathbf{B}(t) = \sum_{i=0}^{n} \mathbf{P}_i b_{i,n}(t),\ t \in [0,1]$$
 
-The points $\mathbf{P}_i$ are called the control points of the curve that can be manipulated to control the curve shape and curvature. $b_{i,n}(t)$ is the Bernstein basis polynomial defined as,
+The points $\mathbf{P}_i$ are called the control points of the curve that can be manipulated to control the curve shape and curvature. The Bernstein basis polynomial $b_{i,n}(t)$ is defined as,
 
 $$b_{i,n}(t) = {n \choose i}(1-t)^{n-i}t^i$$
 

@@ -14,6 +14,7 @@ using ForwardDiff
 using Zygote
 using Optim
 using QuadGK
+using Zygote
 
 abstract type Curve end;
 
@@ -359,7 +360,29 @@ end
 md"""
 # Auto-Differention and CAD Algorithms
 
-Differentiable CAD has gained popularity in the design optimization community. Differentiability allows for a direct connection between surface sensitivities and CAD design parameters. This enables direct design optimization on CAD parameters using efficient adjoint sensitivity. In this notebook, we will explore how CAD algorithms benefit from AutoDiff by presenting a few CAD algorithms.
+Differentiable CAD has gained popularity in the design optimization community. Differentiability allows for a direct connection between surface sensitivities and CAD design parameters. This enables direct design optimization on CAD parameters using efficient adjoint sensitivity. In this notebook, we will explore how CAD algorithms benefit from AutoDiff by presenting a few popular CAD algorithms.
+"""
+
+# ╔═╡ e31a0879-a44c-45d1-a2ab-2557938ea251
+md"""
+# Bézier Curves
+
+Bézier Curves are parametric curves used extensively in CAD modelling to obtain smooth curves with high degree of control on the curvature. It can be represented mathematically as the function $\mathbf{B}(t)$ with parameter $0<t<1$ defined as,
+
+$$\mathbf{B}(t) = \sum_{i=0}^{n} \mathbf{P}_i b_{i,n}(t),\ t \in [0,1]$$
+
+The points $\mathbf{P}_i$ are called the control points of the curve that can be manipulated to control the curve shape and curvature. $b_{i,n}(t)$ is the Bernstein basis polynomial defined as,
+
+$$b_{i,n}(t) = {n \choose i}(1-t)^{n-i}t^i$$
+
+"""
+
+# ╔═╡ 60f0ea92-6c70-4aee-958b-17bfb36ffb40
+md"""
+# Radial blade example
+
+Here is a radial diffuser blade, which has been designed with Bézier Curves. We define the mean camber line (blue) and thickness distribution of the pressure and suction side curves. We also ensure that the curvature at the leading edge of the blade matches the radius of curvature specified by the user (manufacturing and flow separation consideration). At the trailing edge the two curves are smoothly matched using a circular arc (slope contunity).
+
 """
 
 # ╔═╡ d78e5d0b-2e47-438e-8d24-d4b26d369e25
@@ -392,6 +415,85 @@ begin
   # WriteBladeGeometry(blade, "./blade.geo")
   plt
 end
+
+# ╔═╡ 5188b548-e265-46ea-a5c0-9a6e9b1099df
+md"""
+# De Casteljau's algorithm
+
+De Casteljau's algorithm is used to obtain the coordinates on the curve given the parametic coordinate $t$. It is a corner cutting process, which produces a triangular table of points during the evaluation process. The Julia code for the De Casteljau's algorithm is shown below,
+
+```julia
+## Convert the parameter to point on the Bezier curve
+function ParamToPoint(self::BezierCurve, u::Number)
+  n = size(self.p, 2) - 1
+  m = size(self.p, 1)
+  q = Array{typeof(u), 2}(undef, m, n + 1)
+  q .= self.p
+  for k = 1: n
+    for i = 1: n - k + 1
+      @inbounds q[:, i] =  (1.0 - u) * q[:, i] + u * q[:, i + 1]
+    end
+  end
+  @inbounds self.Transformation(q[:, 1]);
+end
+```
+
+"""
+
+# ╔═╡ 5bc4e138-073e-4a5f-9c91-40f73bb694d2
+md"""
+# Bézier curve length
+
+The curve or arc length of a parametric curve is defined as,
+
+$$L = \int_{t_1}^{t_2}\sqrt{ \left(\frac{d x}{d t}\right)^2 + \left(\frac{d y}{d t}\right)^2} dt$$
+
+We can use autodiff to obtain the derivatives $\frac{d x}{d t}$ and $\frac{d y}{d t}$ by differentiating the De Casteljau's algorithm. Then we use the adaptive quadrature (QuadGK package in Julia) to obtain the curve lenght.
+
+```julia
+## Obtain the curve length of the Bezier curve (using quadratures)
+function CurveLength(self::BezierCurve)
+  CurveLength(self, 0.0, 1.0);
+end
+
+## Obtain the curve length of the Bezier curve (using quadratures)
+function CurveLength(self::BezierCurve, lo, hi)
+  function CurveLengthFun(self, x)
+    # Define the curve lambda function to differentiate
+    Tangent = ForwardDiff.derivative( xx -> ParamToPoint(self, xx), x);
+    return sqrt( sum( Tangent .* Tangent ) );
+  end
+  quadgk( x->CurveLengthFun(self, x), lo, hi, rtol=1.0e-6);
+end
+```
+
+Note that we have used the Julia `ForwardDiff` package to obtain the derivative using Dual numbers (very similar to complex-step).
+
+"""
+
+# ╔═╡ fec7dfc9-f667-4ab4-a575-e454051d693f
+md"""
+### Curve length of pressure size Bezier curve
+"""
+
+# ╔═╡ f1b1fe31-8951-4c1d-9cf4-353f1958ad64
+CurveLength(ps)
+
+# ╔═╡ b51a65d7-24b4-4125-b8ff-4f2d4bdd32d2
+md"""
+### Curve length of suction side Bezier curve
+"""
+
+# ╔═╡ 8adbffc5-3548-40d3-848f-99c6019e1c86
+CurveLength(ss)
+
+# ╔═╡ e43a306a-2b85-4262-9959-79c509b15bb2
+md"""
+### Homework problem
+Can you convert the above code to use `Zygote` instead of `ForwardDiff`? 
+
+*Note that `Zygote.gradient` returns a Tuple. Hence take care to use the index operator `[]` to access the derivative value and not the entire pull-back.*
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1818,6 +1920,15 @@ version = "1.4.1+1"
 # ╔═╡ Cell order:
 # ╟─1d75e426-3b18-11ef-2895-09671ad0ae42
 # ╟─5ee51b41-c01b-4803-aea5-7b4768287c28
+# ╟─e31a0879-a44c-45d1-a2ab-2557938ea251
+# ╟─60f0ea92-6c70-4aee-958b-17bfb36ffb40
 # ╟─d78e5d0b-2e47-438e-8d24-d4b26d369e25
+# ╟─5188b548-e265-46ea-a5c0-9a6e9b1099df
+# ╟─5bc4e138-073e-4a5f-9c91-40f73bb694d2
+# ╟─fec7dfc9-f667-4ab4-a575-e454051d693f
+# ╟─f1b1fe31-8951-4c1d-9cf4-353f1958ad64
+# ╟─b51a65d7-24b4-4125-b8ff-4f2d4bdd32d2
+# ╟─8adbffc5-3548-40d3-848f-99c6019e1c86
+# ╟─e43a306a-2b85-4262-9959-79c509b15bb2
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

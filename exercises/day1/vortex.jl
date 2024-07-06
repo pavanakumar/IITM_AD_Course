@@ -54,8 +54,13 @@ begin
 	x0_plot = 0.0
 	y0_plot = 0.0
 	R_plot = 0.1
+
+	print("Vortex Strength (Γ)      = ", Γ_plot, "\n")
+	print("Vortex center (x0, y0)   = (", x0_plot, ", ", y0_plot, ")\n")
+	print("Characterstic Radius (R) = ", R_plot, "\n")
+
 	mag_u_plot(x, y) = sqrt( IsenVortexUV(x, y, Γ_plot, x0_plot, y0_plot, R_plot)[1]^2 + IsenVortexUV(x, y, Γ_plot, x0_plot, y0_plot, R_plot)[2]^2)
-	contour(x_plot, y_plot, mag_u_plot, contour_labels = false, aspect_ratio=1, framestyle = :box, xlimit=[-1,1], ylimit=[-1,1], xlabel="x coordinate", ylabel="y coordinate")
+	contour(x_plot, y_plot, mag_u_plot, contour_labels = false, aspect_ratio=1, framestyle = :box, xlimit=[-1,1], ylimit=[-1,1], xlabel="x coordinate", ylabel="y coordinate")	
 end
 
 # ╔═╡ 5ea77436-d79e-4bba-8e5f-5eba7ab9d0fb

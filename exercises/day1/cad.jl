@@ -358,7 +358,7 @@ end
 
 # ╔═╡ 5ee51b41-c01b-4803-aea5-7b4768287c28
 md"""
-# Auto-Differention and CAD Algorithms
+# Differentiable CAD Algorithms
 
 Differentiable CAD has gained popularity in the design optimization community. Differentiability allows for a direct connection between surface sensitivities and CAD design parameters. This enables direct design optimization on CAD parameters using efficient adjoint sensitivity. In this notebook, we will explore how CAD algorithms benefit from AutoDiff by presenting a few popular CAD algorithms.
 """
@@ -379,9 +379,9 @@ $$b_{i,n}(t) = {n \choose i}(1-t)^{n-i}t^i$$
 
 # ╔═╡ 60f0ea92-6c70-4aee-958b-17bfb36ffb40
 md"""
-# Radial blade example
+# Radial Diffuser Blade Design Example
 
-Here is a radial diffuser blade, which has been designed with Bézier Curves. We define the mean camber line (blue) and thickness distribution of the pressure and suction side curves. We also ensure that the curvature at the leading edge of the blade matches the radius of curvature specified by the user (manufacturing and flow separation consideration). At the trailing edge the two curves are smoothly matched using a circular arc (slope contunity).
+Here is a radial diffuser blade, which has been designed with Bézier Curves. We define the mean camber line (blue) and thickness distribution of the pressure and suction side curves. We also ensure that the curvature at the leading edge of the blade matches the radius of curvature specified by the user (manufacturing and flow separation consideration). At the trailing edge the two curves are smoothly matched using a circular arc (slope continuity).
 
 """
 
@@ -420,7 +420,7 @@ end
 md"""
 # De Casteljau's algorithm
 
-De Casteljau's algorithm is used to obtain the coordinates on the curve given the parametic coordinate $t$. It is a corner cutting process, which produces a triangular table of points during the evaluation process. The Julia code for the De Casteljau's algorithm is shown below,
+De Casteljau's algorithm is used to obtain the coordinates on the curve given the parametric coordinate $t$. It is a corner cutting process, which produces a triangular table of points during the evaluation process. The Julia code for the De Casteljau's algorithm is shown below,
 
 ```julia
 ## Convert the parameter to point on the Bezier curve
@@ -448,7 +448,7 @@ The curve or arc length of a parametric curve is defined as,
 
 $$L = \int_{t_1}^{t_2}\sqrt{ \left(\frac{d x}{d t}\right)^2 + \left(\frac{d y}{d t}\right)^2} dt$$
 
-We can use autodiff to obtain the derivatives $\frac{d x}{d t}$ and $\frac{d y}{d t}$ by differentiating the De Casteljau's algorithm. Then we use the adaptive quadrature (QuadGK package in Julia) to obtain the curve lenght.
+We can use autodiff to obtain the derivatives $\frac{d x}{d t}$ and $\frac{d y}{d t}$ by differentiating the De Casteljau's algorithm. Then we use the adaptive quadrature (QuadGK package in Julia) to obtain the curve length.
 
 ```julia
 ## Obtain the curve length of the Bezier curve (using quadratures)

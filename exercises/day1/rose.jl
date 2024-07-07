@@ -20,9 +20,6 @@ md"""
 # ╔═╡ 161c402a-b492-4c1b-a7f8-edc25f703580
 begin
 	rosenbrock(x, p) = (p[1] - x[1])^2 + p[2] * (x[2] - x[1]^2)^2
-	# x1_ = range(0.0, 1.0)
-	# x2_ = range(0.0, 1.0)
-	# plot(x1_, x2_, rosenbrock(x1_, x2_), st=:surface)
 	x=range(-2,stop=2,length=100)
 	y=range(-1,stop=3,length=100)
 	foo(x, y) = rosenbrock([x y], [1.0, 100.0])
@@ -62,6 +59,49 @@ begin
 	print("x[1] = ", sol1[1], "\n")
 	print("x[2] = ", sol1[2], "\n")
 end
+
+# ╔═╡ 3b9e7448-669c-4021-b029-f68d5bedefe1
+md"""
+# Estimating gradients using finite-difference
+
+### Forward-difference approximation
+
+Let us try to estimate the gradient of the Rosenbrock function with two variables ($x = [x_1, x_2]$) given by the expression.
+
+```julia
+f(x, p) = (p[1] - x[1])^2 + p[2] * (x[2] - x[1]^2)^2
+```
+
+The gradient wrt the first variable x1 (using forward-difference) is,
+
+$$\frac{\partial f}{\partial x_1} = \frac{f(x + h \mathbf{e}_1, p) - f(x, p)}{h}$$
+
+where, $\mathbf{e}_1=[1, 0]$, $p=[1.0, 100.0]$ and consider the evaluation point to be $(0.5, 0,5)$. Let us evaluate the gradient for the different values of $h$ and plot the results in a log scale.
+
+This is implemented using the code 
+
+```julia
+foo_fw_fd(h) = abs(exact_fw - (rosenbrock([0.5+h, 0.5], [1.0, 100.0]) - rosenbrock([0.5, 0.5], [1.0, 100.0]))/h)
+```
+
+"""
+
+# ╔═╡ efcf1317-0aa4-4902-9b9e-91d560235262
+begin
+	h = range(1e-14, 1e-2, 20000)
+	exact_fw = ForwardDiff.derivative(x->rosenbrock([x, 0.5], [1.0, 100.0]), 0.5)[1]
+	print("Exact grad = ", exact_fw, "\n")
+	foo_fw_fd(h) = abs(exact_fw - (rosenbrock([0.5+h, 0.5], [1.0, 100.0]) - rosenbrock([0.5, 0.5], [1.0, 100.0]))/h)
+	plot(h, foo_fw_fd, xaxis=:log, yaxis=:log, framestyle = :box,  xlabel="Step size (h)", ylabel="Gradient error (AD - FD)", legend=false)
+end
+
+# ╔═╡ 4fd1b3e1-6d3f-4164-8bd0-3bc8a68d08ac
+md"""
+### Central difference approximation
+
+*Homework: Extend this to central difference using the forward difference code and plot the results. What do you observe?*
+
+"""
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -2058,5 +2098,8 @@ version = "1.4.1+1"
 # ╟─85c44dc2-5140-4013-8760-05370a95f015
 # ╟─21637de1-cc20-4223-87d2-5dbf4cc63924
 # ╟─ac269873-31be-4d82-9287-5e4940f8ee46
+# ╟─3b9e7448-669c-4021-b029-f68d5bedefe1
+# ╟─efcf1317-0aa4-4902-9b9e-91d560235262
+# ╟─4fd1b3e1-6d3f-4164-8bd0-3bc8a68d08ac
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

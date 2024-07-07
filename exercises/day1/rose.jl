@@ -101,6 +101,12 @@ md"""
 
 *Homework: Extend this to central difference using the forward difference code and plot the results. What do you observe?*
 
+Hint: The gradient wrt the first variable x1 (using central-difference) is,
+
+$$\frac{\partial f}{\partial x_1} = \frac{f(x + h \mathbf{e}_1, p) - f(x - h \mathbf{e}_1, p)}{2h}$$
+
+where, $\mathbf{e}_1=[1, 0]$, $p=[1.0, 100.0]$ and consider the evaluation point to be $(0.5, 0,5)$.
+
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001

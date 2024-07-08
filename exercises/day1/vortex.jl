@@ -123,7 +123,7 @@ $$
 \right]
 \exp{\left[\frac{1 - \left(\frac{r}{R}\right)^2}{2}\right]}$$
 
-Following code in Maxima will produce the desired derivative symbolically. Note that you should [install Maxima](https://maxima.sourceforge.io/download.html) on you machine or have the [Sage packages](https://doc.sagemath.org/html/en/reference/interfaces/sage/interfaces/maxima.html) installed.
+Following code in Maxima will produce the desired derivative symbolically. Note that you should [install Maxima](https://maxima.sourceforge.io/download.html) on you machine or access maxima via [Sage](https://doc.sagemath.org/html/en/reference/interfaces/sage/interfaces/maxima.html).
 ```maxima
 r(x,y) := sqrt( (x-x0)^2 + (y-y0)^2 );
 u_prime(x,y) := A * exp( (1 - (r(x,y)/R)^2 ) / 2 ) * (y0 - y);

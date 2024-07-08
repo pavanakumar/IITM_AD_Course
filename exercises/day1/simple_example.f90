@@ -12,9 +12,9 @@ subroutine f1(y, x)
   real :: w, v, u
   real, parameter :: pi = 3.14159265358979320
   u = 3*x(1) + 2*x(2) + x(3)
-  v = pi * sin(u)
-  w = pi * cos(u) * v
-  y(1) = w
-  y(2) = v
+  w = pi * sin(u)
+  v = pi * cos(u)
+  y(1) = v * w
+  y(2) = w * x(1)
 end subroutine f1
 

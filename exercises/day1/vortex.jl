@@ -65,11 +65,11 @@ end
 
 # ╔═╡ 5ea77436-d79e-4bba-8e5f-5eba7ab9d0fb
 md"""
-# Vertical component of velocity gradient
+# Vorticity ($\omega$)
 
-The vertical component of velocity gradient ($V$) of the Isentropic vortex is obtained using the relation:
+The vorticity ($\omega$) of the Isentropic vortex is obtained using the relation:
 
-$$V = \frac{\partial v'}{\partial x} - \frac{\partial u'}{\partial y}$$
+$$\omega = \nabla \times \mathbf{v} = \frac{\partial v'}{\partial x} - \frac{\partial u'}{\partial y}$$
 
 Note that we need to obtain the derivatives of the perturbation velocity and let us use both analytically derived expression and complex-step method to estimate this value.
 
@@ -115,8 +115,30 @@ md"""
 
 Derive the analytical expression (by hand or use a symbolic software like Maxima) and obtain the analytical value and plot it similar to the complex-step one.
 
-*Hint: Analytical method would result in unstable results!*
+$$
+\omega = \frac{\partial v'}{\partial x} - \frac{\partial u'}{\partial y}=
+\frac{\Gamma}{2 \pi R^2}
+\left[
+2 - \left(\frac{r}{R}\right)^2
+\right]
+\exp{\left[\frac{1 - \left(\frac{r}{R}\right)^2}{2}\right]}$$
 
+Following code in Maxima will produce the desired derivative symbolically.
+```maxima
+r(x,y) := sqrt( (x-x0)^2 + (y-y0)^2 );
+u_prime(x,y) := A * exp( (1 - (r(x,y)/R)^2 ) / 2 ) * (y0 - y);
+v_prime(x,y) := A * exp( (1 - (r(x,y)/R)^2 ) / 2 ) * (x - x0);
+tex(diff(v_prime(x, y), x) - diff(u_prime(x, y), y));
+```
+
+$$2\,A\,e^{
+ {{1-{{\left(y-y_{0}\right)^2+\left(x-x_{0}\right)^2}\over{R^2}}
+ }\over{2}}}
+-{{A\,\left(x-x_{0}\right)^2\,e^{{{1-{{\left(y-y_{0}\right)^2+
+ \left(x-x_{0}\right)^2}\over{R^2}}}\over{2}}}}\over{R^2}}
+-{{A\,\left(y_{0}-y\right)^2 e^{{{1-{{\left(y-
+ y_{0}\right)^2+\left(x-x_{0}\right)^2}\over{R^2}}}\over{2}}}}\over{R
+ ^2}}$$
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -1230,7 +1252,7 @@ version = "1.4.1+1"
 # ╟─ac76885f-8ccd-436e-b9ae-bb0b88bda945
 # ╟─5ea77436-d79e-4bba-8e5f-5eba7ab9d0fb
 # ╟─4b1d42c1-5927-4671-b00a-0d546313cd66
-# ╠═b75c2e05-e927-4785-9468-29c23bffd3a3
+# ╟─b75c2e05-e927-4785-9468-29c23bffd3a3
 # ╟─c76ffb98-41d7-4627-8edc-6bd165a7fc21
 # ╟─e8aaf622-76bd-4c5a-a370-58c8b1964374
 # ╟─00000000-0000-0000-0000-000000000001

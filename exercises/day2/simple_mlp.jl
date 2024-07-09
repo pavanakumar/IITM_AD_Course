@@ -57,6 +57,17 @@ data = [([x], 2x-x^3) for x in 0:0.1f0:2];
   scatter!(0:0.1:2, [model([x]) for x in 0:0.1:2])
 end
 
+# ╔═╡ 611d70dc-de30-444f-a86d-d887b3271d3c
+md"""
+
+### Exercise
+
+Can you modify the code to fit the following function
+
+$$f(x)=\frac{2x−x^3}{1 + x^2} \hspace{15pt}  x \in (0,2)?$$
+
+"""
+
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
 [deps]
@@ -1674,6 +1685,7 @@ version = "1.4.1+1"
 # ╔═╡ Cell order:
 # ╟─2275f05c-3dc2-11ef-338a-55abcad95d6d
 # ╟─53be452d-6233-49f8-9199-2544706fe410
-# ╠═c645a7c5-90f6-40fb-8ec2-24bc48b6d757
+# ╟─c645a7c5-90f6-40fb-8ec2-24bc48b6d757
+# ╟─611d70dc-de30-444f-a86d-d887b3271d3c
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002

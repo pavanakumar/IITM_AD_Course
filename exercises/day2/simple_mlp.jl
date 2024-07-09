@@ -64,7 +64,7 @@ md"""
 
 Can you modify the code to fit the following function
 
-$$f(x)=\frac{2x−x^3}{1 + x^2} \hspace{15pt}  x \in (0,2)?$$
+$$f(x)=\frac{x^2}{1 - x^2} \hspace{15pt}  x \in (-2,2)?$$
 
 """
 

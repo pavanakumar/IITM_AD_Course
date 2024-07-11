@@ -14,7 +14,7 @@ program run_stencil
     ud = 0.0
     resd = 0.0
     ud(i) = 1.0
-    call stencil_d(n, (/ 1.0, -2.0, 3.0 /), u, ud, res, resd)
+    call stencil_d(n, (/ 1.0, -2.0, 1.0 /), u, ud, res, resd)
     ! Construct one column at a time
     jacob(i, 1:n) = resd
   end do

@@ -387,7 +387,7 @@ Here is a radial diffuser blade, which has been designed with Bézier Curves. We
 """
 
 # ╔═╡ 37de91ad-65e6-4bf5-b1a0-c17349331bdd
-PlutoUI.LocalResource("images/radial_diffuser.png")
+PlutoUI.LocalResource("images/radial_diffuser.png", :width => 400)
 
 # ╔═╡ d78e5d0b-2e47-438e-8d24-d4b26d369e25
 begin

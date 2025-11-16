@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Rosenbrock Function Optimization: Gradient vs Gradient-Free Methods
-Python/PyTorch port of Julia Pluto notebook
 
 This script demonstrates:
 1. 3D visualization of the Rosenbrock function

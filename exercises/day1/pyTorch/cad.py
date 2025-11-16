@@ -188,18 +188,8 @@ class BezierCurve(Curve):
             Speed at parameter u
         """
         u_tensor = torch.tensor(u, dtype=torch.float32)
-        try:
-            tangent = self.tangent_at_param(u_tensor)
-            return float(torch.norm(tangent))
-        except:
-            # Fallback to finite differences if autograd fails
-            h = 1e-6
-            u1 = max(0.0, u - h)
-            u2 = min(1.0, u + h)
-            p1 = self.de_casteljau(torch.tensor(u1, dtype=torch.float32))
-            p2 = self.de_casteljau(torch.tensor(u2, dtype=torch.float32))
-            diff = p2 - p1
-            return float(torch.norm(diff) / (u2 - u1))
+        tangent = self.tangent_at_param(u_tensor)
+        return float(torch.norm(tangent))
 
     def curve_length(self, u_start: float = 0.0, u_end: float = 1.0) -> float:
         """
@@ -212,47 +202,10 @@ class BezierCurve(Curve):
         Returns:
             Curve length
         """
-        try:
-            # Try numerical integration first
-            length, _ = quad(self.curve_length_integrand, u_start, u_end,
-                            epsabs=1e-6, epsrel=1e-6, limit=100)
-            # Sanity check: if length is unreasonably large, use discrete approximation
-            if length > 10000:  # Threshold for "too large"
-                return self._curve_length_discrete(u_start, u_end)
-            return length
-
-        except:
-            # Fallback to discrete approximation
-            return self._curve_length_discrete(u_start, u_end)
-
-    def _curve_length_discrete(self, u_start: float = 0.0, u_end: float = 1.0,
-                              n_points: int = 1000) -> float:
-        """
-        Calculate curve length using discrete approximation
-
-        Args:
-            u_start: Start parameter
-            u_end: End parameter
-            n_points: Number of discretization points
-
-        Returns:
-            Approximate curve length
-        """
-        u_values = torch.linspace(u_start, u_end, n_points, dtype=torch.float32)
-        points = []
-
-        for u in u_values:
-            point = self.de_casteljau(u)
-            points.append(point.detach())
-
-        points = torch.stack(points)
-
-        # Calculate distances between consecutive points
-        diffs = points[1:] - points[:-1]
-        distances = torch.norm(diffs, dim=1)
-        total_length = torch.sum(distances)
-
-        return float(total_length)
+        # Try numerical integration first
+        length, _ = quad(self.curve_length_integrand, u_start, u_end,
+                    epsabs=1e-6, epsrel=1e-6, limit=100)
+        return length
 
     def arc_param_to_param(self, u_arc: float, max_iterations: int = 100,
                           tolerance: float = 1e-10) -> float:

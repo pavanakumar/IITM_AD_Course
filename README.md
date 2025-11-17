@@ -1,6 +1,12 @@
 # AutoDiff Course Material
 
-The repository contains the AutoDiff course material: notes/slides, codes, exercises and reading material. The course uses Fortran and Julia programming language for the demo and exercises. Tapenade AD tool is used for the exercises/demo in Fortran. Emzyme and Zygote is used for AD in Julia language.
+The repository contains the AutoDiff course material: notes/slides, codes, exercises and reading material. The course uses (1) Fortran, (2) Julia and (3) Python programming language for the demo and exercises. 
+
+(1) Tapenade AD tool is used for the exercises/demo in Fortran
+
+(2) Emzyme and Zygote is used for AD in Julia
+
+(3) pyTorch is used for AD in Python
 
 We assume that the user has access to a (virtual) machine with GNU/Linux preferably Debian based distro with an active internet connection and a web browser. Install all necessary build/compiler toolchains in the GNU/Linux distro something similar to,
 
@@ -73,4 +79,3 @@ julia> Pluto.run()
 
 This will open Pluto in a web browser. Just open the .jl exercise notebooks and 
 start learning !
-
